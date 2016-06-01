@@ -1,19 +1,12 @@
-package practiseClassAndObject;
+package main;
 
 /**
  * 
  * arithmetic class
  * 
-<<<<<<< HEAD
- * @author hangin <<<<<<< HEAD
- * @since 20160527
- *
- *        ======= >>>>>>> 8cbdde7... Practise Object and Class - Day 2
-=======
  * @author hangin
  * @since 20160527
  *
->>>>>>> 90c59a1... update bai tap d2_class and object
  */
 
 public class arithmetic {
@@ -104,13 +97,8 @@ public class arithmetic {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Thuc hanh phep toan logic, quan he/ cac lenh dieu kien: Ham so sanh 2 so
 	 * nguyen
-=======
-	 * Thuc hanh phep toan logic, quan he/ cac lenh dieu kien: Hàm so sánh 2 số
-	 * nguyên
->>>>>>> 90c59a1... update bai tap d2_class and object
 	 * 
 	 * @author HangNT
 	 * @since 20160527
@@ -127,14 +115,8 @@ public class arithmetic {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Thuc hanh phep toan logic, quan he/ cac lenh dieu kien: So sanh tich 2 so
 	 * nguyen voi 0
-=======
-	 * Thuc hanh phep toan logic, quan he/ cac lenh dieu kien: Hàm so sánh tích
-	 * 2 số nguyên với 0
->>>>>>> 90c59a1... update bai tap d2_class and object
-	 * 
 	 * @author HangNT
 	 * @since 20160527
 	 */
@@ -195,7 +177,6 @@ public class arithmetic {
 		} while (i < 10);
 	}
 
-
 	/**
 	 * In ra thang trong nam tuong ung voi gia tri input
 	 * 
@@ -252,7 +233,6 @@ public class arithmetic {
 	 * @param args
 	 * @since 20160527
 	 */
-
 	public static void main(String[] args) {
 
 		arithmetic arith = new arithmetic(5, 6);

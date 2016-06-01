@@ -1,13 +1,11 @@
-package practiseClassAndObject;
+package tests;
+
+import main.arithmetic;
 
 /**
- * 
-<<<<<<< HEAD
- * @author HangNT main class call to object of arithmetic class
-=======
- * @author HangNT
  * main class call to object of arithmetic class
->>>>>>> 90c59a1... update bai tap d2_class and object
+ * 
+ * @author HangNT
  *
  */
 
@@ -31,7 +29,6 @@ public class mainClass {
 		arith1.evenNumber();
 		arith1.oddNumber();
 		arith1.switchCase(x);
-
 		// Goi ham thuc hanh cac phep logic va quan he/ cac lenh dieu kien
 		System.out.print("\n\n***************HAM THUC HANH PHEP TOAN LOGIC/ QUAN HE/ LENH DIEU KIEN****************");
 		arith1.compare(x, y);
