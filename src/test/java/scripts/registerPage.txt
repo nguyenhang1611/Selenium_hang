@@ -1,0 +1,27 @@
+#**************Redirect to Register screen*************
+#Open menu to select register item
+home.accountLinkTxt=Css=a.skip-link.skip-account
+#Redirect to register page
+menu.registItem=link=Register
+
+#**************Textbox on Register screen**************
+#First name textbox
+register.firstNameTxt=id=firstname
+#Last name textbox
+register.lastNameTxt=id=lastname
+#Email address textbox
+register.emailTxt=id=email_address
+#Password textbox
+register.pwdTxt=id=password
+#Confirm password textbox
+register.confirmPwdTxt=id=confirmation
+
+#**************Checkbox on Register screen*************
+#Sign Up for Newsletter checkbox
+register.signupCheckbox=id=is_subscribed
+
+#**************Button on Register screen****************
+#Register button
+register.regBtn=xpath=//button[@title='Register']
+#Back button 
+register.backBtn=Css=a.back-link
