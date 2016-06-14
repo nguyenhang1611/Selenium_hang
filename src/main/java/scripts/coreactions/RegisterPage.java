@@ -62,6 +62,7 @@ public class RegisterPage extends CoreActionForm {
 	 * @since 2016/06/09
 	 * @param fstName
 	 * @param lstName
+	 * @param email
 	 * @param pwd
 	 * @param pwdConfirm
 	 */
@@ -71,7 +72,7 @@ public class RegisterPage extends CoreActionForm {
 		objCommon.sendKeys(emailTxt, email);
 		objCommon.sendKeys(pwdTxt, pwd);
 		objCommon.sendKeys(pwdConfirmTxt, pwdConfirm);
-		objCommon.clickOnElement(registBtn);
+		objCommon.clickByJavascript(registBtn);
 	}
 
 	/**

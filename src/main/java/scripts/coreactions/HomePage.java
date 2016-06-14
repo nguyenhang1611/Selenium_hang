@@ -16,6 +16,7 @@ public class HomePage extends CoreActionForm {
 
 	public static String accountLinkText = "css=a.skip-link.skip-account";
 	public static String registerLinkText = "xpath=//*[@id='header-account']//ul/li[5]/a";
+	public static String logInLinkText = "xpath=//*[@id='header-account']//ul/li[6]/a";
 
 	/**
 	 * 

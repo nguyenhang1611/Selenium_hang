@@ -63,7 +63,7 @@ public class RegisterScripts {
 
 	public static void main(String[] args) throws InterruptedException {
 		System.setProperty("webdriver.chrome.driver", "D:/2016/AT/chromedriver_win32/chromedriver.exe");
-		//registerFailWithEmptyValues();
+		registerFailWithEmptyValues();
 		registerSuccess();
 
 	}
