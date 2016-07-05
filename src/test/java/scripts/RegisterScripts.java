@@ -1,70 +1,66 @@
 package test.java.scripts;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-import main.java.scripts.coreactions.HomePage;
-import main.java.scripts.coreactions.RegisterPage;
+import main.java.scripts.base.TestBaseSetup;
+import main.java.scripts.page.RegisterPage;
 
 /**
  * RegisterScripts class
  * 
  * @author HangNT
- * @since 2016/06/09
+ * @since 2016/07/03
  */
-public class RegisterScripts {
+public class RegisterScripts extends TestBaseSetup {
+	private WebDriver driver;
+	private RegisterPage registerPageObj;
+	private String expectSuccMsg = "Thank you for registering with Main Website Store.";
+	private String expectReqMsg = "This is a required field.";
 
-	private static String expectSuccMsg = "Thank you for registering with Main Website Store.";
-	private static String expectReqMsg = "This is a required field.";
+	@BeforeClass
+	public void setUp() {
+		driver = getDriver();
+	}
 
 	/**
 	 * register Success
 	 * 
 	 * @author HangNT
-	 * @since 2016/06/09
+	 * @since 2016/07/03
 	 */
-	public static void registerSuccess() {
-		WebDriver driver = new ChromeDriver();
-		RegisterPage.driver = driver;
-		HomePage.driver = driver;
-		RegisterPage.goToRegisterPage("http://live.guru99.com/");
-		RegisterPage.register("fisrt name", "last name", RegisterPage.randomEmail(), "123456", "123456");
-		if (RegisterPage.getSuccessMsg().contentEquals(expectSuccMsg)) {
+	@Test
+	public void registerSuccess() {
+		registerPageObj = new RegisterPage(driver);
+		registerPageObj.goToRegisterPage();
+		registerPageObj.register("fisrt name", "last name", registerPageObj.randomEmail(), "123456", "123456");
+		if (registerPageObj.getSuccessMsg().contentEquals(expectSuccMsg)) {
 			System.out.println("Test Passed!");
 		} else {
 			System.out.println("Test Fail!");
 		}
-		HomePage.closePage();
 	}
 
 	/**
 	 * register fail with empty values
 	 * 
 	 * @author HangNT
-	 * @since 2016/06/09
+	 * @since 2016/07/03
 	 */
-	public static void registerFailWithEmptyValues() {
-		WebDriver driver = new ChromeDriver();
-		RegisterPage.driver = driver;
-		HomePage.driver = driver;
-		RegisterPage.goToRegisterPage("http://live.guru99.com/");
-		RegisterPage.register("", "", "", "", "");
-		if (RegisterPage.getFstNameReqMsg().contentEquals(expectReqMsg)
-				|| RegisterPage.getLstNameReqMsg().contentEquals(expectReqMsg)
-				|| RegisterPage.getEmailReqMsg().contentEquals(expectReqMsg)
-				|| RegisterPage.getPwdReqMsg().contentEquals(expectReqMsg)
-				|| RegisterPage.getPwdConfirmReqMsg().contentEquals(expectReqMsg)) {
+	@Test
+	public void registerFailWithEmptyValues() {
+		registerPageObj = new RegisterPage(driver);
+		registerPageObj.goToRegisterPage();
+		registerPageObj.register("", "", "", "", "");
+		if (registerPageObj.getFstNameReqMsg().contentEquals(expectReqMsg)
+				|| registerPageObj.getLstNameReqMsg().contentEquals(expectReqMsg)
+				|| registerPageObj.getEmailReqMsg().contentEquals(expectReqMsg)
+				|| registerPageObj.getPwdReqMsg().contentEquals(expectReqMsg)
+				|| registerPageObj.getPwdConfirmReqMsg().contentEquals(expectReqMsg)) {
 			System.out.println("Test Passed!");
 		} else {
 			System.out.println("Test Fail!");
 		}
-		HomePage.closePage();
-	}
-
-	public static void main(String[] args) throws InterruptedException {
-		System.setProperty("webdriver.chrome.driver", "D:/2016/AT/chromedriver_win32/chromedriver.exe");
-		registerFailWithEmptyValues();
-		registerSuccess();
-
 	}
 }

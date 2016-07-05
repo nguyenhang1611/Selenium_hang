@@ -1,76 +1,86 @@
 package test.java.scripts;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-import main.java.scripts.coreactions.HomePage;
-import main.java.scripts.coreactions.LoginLogoutPage;
+import main.java.scripts.base.TestBaseSetup;
+import main.java.scripts.page.LoginLogoutPage;
 
-public class LoginLogoutScripts {
-	private static String expectLoginLabel = "My Dashboard";
-	private static String expectLogoutLabel = "You have logged out and will be redirected to our homepage in 5 seconds.";
-	private static String expectLoginReqLabel = "This is a required field.";
+/**
+ * 
+ * @class LoginLogoutScripts
+ * 
+ * @author HangNT
+ * @since 2017/07/03
+ *
+ */
+public class LoginLogoutScripts extends TestBaseSetup {
+	private WebDriver driver;
+	private LoginLogoutPage loginLogoutPageObj;
+	private String expectLoginLabel = "My Dashboard";
+	private String expectLogoutLabel = "You have logged out and will be redirected to our homepage in 5 seconds.";
+	private String expectLoginReqLabel = "This is a required field.";
 
-	/**
-	 * Login Success
-	 * 
-	 * @author HangNT
-	 * @since 2016/06/14
-	 */
-	public static void loginSuccess() {
-		WebDriver driver = new ChromeDriver();
-		LoginLogoutPage.driver = driver;
-		HomePage.driver = driver;
-		LoginLogoutPage.goToLoginPage("http://live.guru99.com/");
-		LoginLogoutPage.loginGuru("hangnguyen1611@gmail.com", "123456");
-		if (LoginLogoutPage.getLoginSuccessMsg().contentEquals(expectLoginLabel)) {
-			System.out.println("Test Passed!");
-		} else {
-			System.out.println("Test Fail!");
-		}
-		HomePage.closePage();
+	@BeforeClass
+	public void setUp() {
+		driver = getDriver();
 	}
 
 	/**
 	 * Login Success
 	 * 
 	 * @author HangNT
-	 * @since 2016/06/14
+	 * @since 2016/07/03
 	 */
-	public static void loginFail() {
-		WebDriver driver = new ChromeDriver();
-		LoginLogoutPage.driver = driver;
-		HomePage.driver = driver;
-		LoginLogoutPage.goToLoginPage("http://live.guru99.com/");
-		LoginLogoutPage.loginGuru("", "");
-		if (LoginLogoutPage.getEmailReqMsg().contentEquals(expectLoginReqLabel)
-				&& LoginLogoutPage.getPwdReqMsg().contentEquals(expectLoginReqLabel)) {
+	@Test(priority = 2)
+	public void loginSuccess() {
+		loginLogoutPageObj = new LoginLogoutPage(driver);
+		loginLogoutPageObj.goToLoginPage();
+		loginLogoutPageObj.loginGuru("hangnguyen1611@gmail.com", "123456");
+		if (loginLogoutPageObj.getLoginSuccessMsg().contentEquals(expectLoginLabel)) {
 			System.out.println("Test Passed!");
 		} else {
 			System.out.println("Test Fail!");
 		}
-		HomePage.closePage();
 	}
 
-	public static void logout() {
-		WebDriver driver = new ChromeDriver();
-		LoginLogoutPage.driver = driver;
-		HomePage.driver = driver;
-		LoginLogoutPage.goToLoginPage("http://live.guru99.com/");
-		LoginLogoutPage.loginGuru("hangnguyen1611@gmail.com", "123456");
-		LoginLogoutPage.logout();
-		if (LoginLogoutPage.getLogoutMsg().contentEquals(expectLogoutLabel)) {
+	/**
+	 * Login Success
+	 * 
+	 * @author HangNT
+	 * @since 2016/07/03
+	 */
+	@Test(priority = 3)
+	public void loginFail() {
+		loginLogoutPageObj = new LoginLogoutPage(driver);
+		loginLogoutPageObj.goToLoginPage();
+		loginLogoutPageObj.loginGuru("", "");
+		if (loginLogoutPageObj.getEmailReqMsg().contentEquals(expectLoginReqLabel)
+				&& loginLogoutPageObj.getPwdReqMsg().contentEquals(expectLoginReqLabel)) {
 			System.out.println("Test Passed!");
 		} else {
 			System.out.println("Test Fail!");
 		}
-		HomePage.closePage();
 	}
 
-	public static void main(String[] args) throws InterruptedException {
-		System.setProperty("webdriver.chrome.driver", "D:/2016/AT/chromedriver_win32/chromedriver.exe");
-		loginSuccess();
-		logout();
-		loginFail();
+	/**
+	 * Logout
+	 * 
+	 * @author HangNT
+	 * @since 2016/07/03
+	 */
+	@Test(priority = 1)
+	public void logout() {
+		loginLogoutPageObj = new LoginLogoutPage(driver);
+		loginLogoutPageObj.goToLoginPage();
+		loginLogoutPageObj.loginGuru("hangnguyen1611@gmail.com", "123456");
+		loginLogoutPageObj.logout();
+		if (loginLogoutPageObj.getLogoutMsg().contentEquals(expectLogoutLabel)) {
+			System.out.println("Test Passed!");
+		} else {
+			System.out.println("Test Fail!");
+		}
 	}
+
 }
