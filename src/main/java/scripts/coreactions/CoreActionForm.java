@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * CoreActionForm class
+ * @class CoreActionForm
  * 
  * @author HangNT
  * @since 2016/06/09
@@ -36,25 +36,12 @@ public class CoreActionForm {
 	 * @param element
 	 */
 	public void clickOnElement(String element) {
-
 		WebElement onElement = driver.findElement(getObject(element));
+		try {
+			onElement.click();
 
-		if (onElement != null && onElement.isEnabled()) {
-			onElement.click();
-			WebElement onElement1 = driver.findElement(getObject(element));
-			if (onElement1 != null && onElement1.isEnabled()) {
-				onElement1.click();
-			}
-		} else if (onElement != null && onElement.isEnabled())
-			onElement.click();
-		else {
-			if (!onElement.isEnabled()) {
-				clickByJavascript(element);
-			} else
-				onElement.click();
-		}
-		if (isAlertPresent() == true) {
-			driver.switchTo().alert().accept();
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -209,6 +196,13 @@ public class CoreActionForm {
 	 */
 	public String getCurrentTextOfElement(String element) {
 		return getWebElement(element).getText().trim();
+	}
+
+	public String getTextByJavascript(String element) {
+		WebElement onElement = driver.findElement(getObject(element));
+		String theTextIWant = (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].innerHTML;",
+				onElement);
+		return theTextIWant;
 	}
 
 	/**
