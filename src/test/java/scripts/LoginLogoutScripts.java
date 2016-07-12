@@ -1,10 +1,12 @@
 package test.java.scripts;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import main.java.scripts.base.TestBaseSetup;
+import main.java.scripts.coreactions.ReadExcelFile;
 import main.java.scripts.page.LoginLogoutPage;
 
 /**
@@ -12,13 +14,13 @@ import main.java.scripts.page.LoginLogoutPage;
  * @class LoginLogoutScripts
  * 
  * @author HangNT
- * @since 2017/07/03
+ * @since 2017/07/13
  *
  */
 public class LoginLogoutScripts extends TestBaseSetup {
 	private WebDriver driver;
 	private LoginLogoutPage loginLogoutPageObj;
-	private String expectLoginLabel = "My Dashboard";
+	private String expectLoginLabel = "MY DASHBOARD";
 	private String expectLogoutLabel = "You have logged out and will be redirected to our homepage in 5 seconds.";
 	private String expectLoginReqLabel = "This is a required field.";
 
@@ -31,36 +33,34 @@ public class LoginLogoutScripts extends TestBaseSetup {
 	 * Login Success
 	 * 
 	 * @author HangNT
-	 * @since 2016/07/03
+	 * @since 2016/07/13
 	 */
-	@Test(priority = 2)
+	@Test
 	public void loginSuccess() {
 		loginLogoutPageObj = new LoginLogoutPage(driver);
 		loginLogoutPageObj.goToLoginPage();
 		loginLogoutPageObj.loginGuru("hangnguyen1611@gmail.com", "123456");
-		if (loginLogoutPageObj.getLoginSuccessMsg().contentEquals(expectLoginLabel)) {
-			System.out.println("Test Passed!");
-		} else {
-			System.out.println("Test Fail!");
-		}
+		Assert.assertEquals(loginLogoutPageObj.getLoginSuccessMsg(), expectLoginLabel);
 	}
 
 	/**
 	 * Login Success
 	 * 
 	 * @author HangNT
-	 * @since 2016/07/03
+	 * @since 2016/07/13
 	 */
-	@Test(priority = 3)
+	@Test
 	public void loginFail() {
 		loginLogoutPageObj = new LoginLogoutPage(driver);
 		loginLogoutPageObj.goToLoginPage();
-		loginLogoutPageObj.loginGuru("", "");
-		if (loginLogoutPageObj.getEmailReqMsg().contentEquals(expectLoginReqLabel)
-				&& loginLogoutPageObj.getPwdReqMsg().contentEquals(expectLoginReqLabel)) {
-			System.out.println("Test Passed!");
-		} else {
-			System.out.println("Test Fail!");
+		ReadExcelFile readExcelFileObj = new ReadExcelFile();
+		int rowCount = readExcelFileObj.getRowCount("C:", "Excel.xlsx", "Sheet1");
+		for (int i = 1; i <= rowCount; i++) {
+			String UserName = readExcelFileObj.getCellValue("C:", "Excel.xlsx", "Sheet1", i, 0);
+			String Pwd = readExcelFileObj.getCellValue("C:", "Excel.xlsx", "Sheet1", i, 1);
+			loginLogoutPageObj.loginGuru(UserName, Pwd);
+			Assert.assertEquals(loginLogoutPageObj.getEmailReqMsg(), expectLoginReqLabel);
+			Assert.assertEquals(loginLogoutPageObj.getPwdReqMsg(), expectLoginReqLabel);
 		}
 	}
 
@@ -68,19 +68,15 @@ public class LoginLogoutScripts extends TestBaseSetup {
 	 * Logout
 	 * 
 	 * @author HangNT
-	 * @since 2016/07/03
+	 * @since 2016/07/13
 	 */
-	@Test(priority = 1)
+	@Test
 	public void logout() {
 		loginLogoutPageObj = new LoginLogoutPage(driver);
 		loginLogoutPageObj.goToLoginPage();
 		loginLogoutPageObj.loginGuru("hangnguyen1611@gmail.com", "123456");
 		loginLogoutPageObj.logout();
-		if (loginLogoutPageObj.getLogoutMsg().contentEquals(expectLogoutLabel)) {
-			System.out.println("Test Passed!");
-		} else {
-			System.out.println("Test Fail!");
-		}
+		Assert.assertEquals(loginLogoutPageObj.getLogoutMsg(), expectLogoutLabel);
 	}
 
 }

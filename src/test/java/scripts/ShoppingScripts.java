@@ -1,6 +1,7 @@
 package test.java.scripts;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -57,7 +58,7 @@ public class ShoppingScripts extends TestBaseSetup {
 	 * Verify shopping success
 	 * 
 	 * @author HangNT
-	 * @since 2017/07/03
+	 * @since 2017/07/13
 	 */
 	@Test
 	public void shoppingSuccess() {
@@ -81,10 +82,6 @@ public class ShoppingScripts extends TestBaseSetup {
 		checkoutOrderReviewObj.placeOrderClick();
 
 		checkoutFinishedPageObj = new CheckoutFinishedPage(driver);
-		if (checkoutFinishedPageObj.getHeaderAfterCheckOut().contentEquals(expectHeaderAfterCheckOut)) {
-			System.out.println("Test Passed!");
-		} else {
-			System.out.println("Test Fail!");
-		}
+		Assert.assertEquals(checkoutFinishedPageObj.getHeaderAfterCheckOut(), expectHeaderAfterCheckOut);
 	}
 }
