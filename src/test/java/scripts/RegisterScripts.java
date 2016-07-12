@@ -1,6 +1,7 @@
 package test.java.scripts;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -11,7 +12,7 @@ import main.java.scripts.page.RegisterPage;
  * RegisterScripts class
  * 
  * @author HangNT
- * @since 2016/07/03
+ * @since 2016/07/13
  */
 public class RegisterScripts extends TestBaseSetup {
 	private WebDriver driver;
@@ -28,39 +29,31 @@ public class RegisterScripts extends TestBaseSetup {
 	 * register Success
 	 * 
 	 * @author HangNT
-	 * @since 2016/07/03
+	 * @since 2016/07/13
 	 */
 	@Test
 	public void registerSuccess() {
 		registerPageObj = new RegisterPage(driver);
 		registerPageObj.goToRegisterPage();
 		registerPageObj.register("fisrt name", "last name", registerPageObj.randomEmail(), "123456", "123456");
-		if (registerPageObj.getSuccessMsg().contentEquals(expectSuccMsg)) {
-			System.out.println("Test Passed!");
-		} else {
-			System.out.println("Test Fail!");
-		}
+		Assert.assertEquals(registerPageObj.getSuccessMsg(), expectSuccMsg);
 	}
 
 	/**
 	 * register fail with empty values
 	 * 
 	 * @author HangNT
-	 * @since 2016/07/03
+	 * @since 2016/07/13
 	 */
 	@Test
 	public void registerFailWithEmptyValues() {
 		registerPageObj = new RegisterPage(driver);
 		registerPageObj.goToRegisterPage();
 		registerPageObj.register("", "", "", "", "");
-		if (registerPageObj.getFstNameReqMsg().contentEquals(expectReqMsg)
-				|| registerPageObj.getLstNameReqMsg().contentEquals(expectReqMsg)
-				|| registerPageObj.getEmailReqMsg().contentEquals(expectReqMsg)
-				|| registerPageObj.getPwdReqMsg().contentEquals(expectReqMsg)
-				|| registerPageObj.getPwdConfirmReqMsg().contentEquals(expectReqMsg)) {
-			System.out.println("Test Passed!");
-		} else {
-			System.out.println("Test Fail!");
-		}
+		Assert.assertEquals(registerPageObj.getFstNameReqMsg(), expectReqMsg);
+		Assert.assertEquals(registerPageObj.getLstNameReqMsg(), expectReqMsg);
+		Assert.assertEquals(registerPageObj.getEmailReqMsg(), expectReqMsg);
+		Assert.assertEquals(registerPageObj.getPwdReqMsg(), expectReqMsg);
+		Assert.assertEquals(registerPageObj.getPwdConfirmReqMsg(), expectReqMsg);
 	}
 }
